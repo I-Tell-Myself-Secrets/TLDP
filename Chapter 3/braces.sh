@@ -55,4 +55,45 @@ echo $line2
 
 # NOTICE: This protion of the script used the fstab file; however, my script doesn't use such a file for it was overwritten the first time I wrote this part (and tested it) that it bricked my previous OS. I bet it was a boob mistake but be warned: fstab file states the partions of the hardrive of the machine, if that information is lost and there is no way to recreate such a file (as with the noob that I am), the PC will tend to become useless.
 
+# Application 2: Saving The Output Of A Code Block To A File
+# Queries an rpm file for description, listing, and whether it can be installed.
+# Saves the output to a file/
+#	SUCCESS=0
+#	E_NOARGS=65
+#	if [ -z "$1" ]
+#	then
+#		echo "Usage: 'basename $0' rpm-file"
+#		exit $E_NOARGS
+#	fi
+#	{
+#	echo
+#	echo "Archive Description:"
+#	rpm -qpi $1	# Query Description
+#	echo
+#	echo "Archive Listing:"
+#	rpm -qpl $1	# Query Listing
+#	echo
+#	rpm -i --test $1	# Query whether rpm file can be installed
+#	if [ "$?" -eq $SUCCESS ]
+#	then
+#		echo "$1 can be installed!"
+#	else
+#		echo "$1 cannot be installed!"
+#	fi
+#	echo
+#	} > "$1.test"	# Redirects output of everything in block to file.
+
+#		NOTICE: Unlike a command group within (parentheses), as 		above, as code block enclosed by {braces} will not normally 			launch a subshell.
+
+# -------------------------------------------------------------------------
+
+# Placeholder For Text ({}): Used after xargs -i (replace strings option). The {} double curly brackets are a placeholder for output text.
+#	ls . | xargs -i -t cp ./Data/{} $1 
+
+# --------------------------------------------------------------------------
+
+# Pathname ({} \): Mostly used in find constructs.
+
+# Definition: A Pathname is a filename that includes the complete path. As an example, /home/bozo/Notes/Thrusday/Schedule.txt. This is sometimes referred to as absolute path.
+#	NOTICE: The ';' ends the -exec option of a find command sequence. 		It needs to be escaped to protect it from interpretation by the 	shell.
 exit 0

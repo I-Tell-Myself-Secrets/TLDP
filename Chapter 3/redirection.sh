@@ -46,8 +46,10 @@ else
 	echo "What kind of dictionary are you using, anyhow?"
 fi
 
-# The iperators \< and \> can be used as word boundaries in a regular expression:
+# The operators \< and \> can be used as word boundaries in a regular expression:
 #	grep '\<the\>' textfile
+
+# The operator of >| can be used as Force Redirection; hence, the act of forcibly overwritting a file.
 
 # -----------------------------------------------------------------------------
 
@@ -59,5 +61,23 @@ echo ls -l | sh
 
 cat *.lst | sort | uniq
 # Merges and sorts all ".lst" files, then deletes duplicate lines.
+
+# NOTICE: A pipe, as a classic method of interprocess communication, sends the stdout of one process to the stdin of another. In a typical case, a command, such a cat or echo, pipes a stream of data to a filter, a command that transforms its input for processing.
+search_word="dank"
+some_file="Data/read_lines.txt"
+cat $some_file | grep $search_word
+
+# In addition, the output of a command or commands may be piped to a script; as in the following example, in which the input is set to uppercase:
+ls -l | Data/uppercase.sh
+
+#	NOTICE: The stdout of each process in a pipe must be read as the stdin 		of the next. If this is not the case, the data stream will block, and 		the pipe will not behave as expected:
+	cat $some_File | ls -l | sort	# The output from "cat $some_File" 						disappears.
+
+#	NOTICE: A pipe runs as a child process; therefore, it cannot alter 		script variables.
+	some_variable=0
+	echo "The new variable of some_variable is 1." | read some_variable
+	echo "Is it tho...? (some_variable = $some_variable)"
+
+exit 0
 
  

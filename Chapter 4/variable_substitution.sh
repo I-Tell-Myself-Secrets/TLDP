@@ -30,6 +30,7 @@ hello=$a
 #	VARIABLE= value
 #		 ^
 #% The script tries to run the value command with the enviroment variable VARIABLE set to "".
+
 # ---------------------------
 
 echo hello	# hello
@@ -52,3 +53,46 @@ echo "$hello"	# A B C   D
 # As it can be seen, echo $hello and echo "$hello" give different results. That is, quoting a variable preserves whitespace.
 
 echo
+
+echo '$hello' # $hello
+#    ^      ^
+# Variable referencing disabled (escaped) by single quotes, which causes the '$' to be interpreted literally.
+
+# Setting a NULL value
+hello=
+echo "\$hello (null value) = $hello"	# $hello (null value) =
+# Note that setting a variable to a null value is not the same as unsetting it, although the end result is the same (see below).
+
+# ---------------------------
+#   Setting Multiple Values
+# ---------------------------
+
+echo; echo
+
+numbers="one two three"
+#	    ^   ^
+other_numbers="1 2 3"
+#		^ ^
+# If there is whitespace embedded within a variable, then quotes are necessary.
+#	other_numbers=1 2 3 -> This will give an error!
+echo "numbers = $numbers"
+echo "other_numbers = $other_numbers"
+# Escaping the whitespace also works,
+mixed_bag=2\ ---\ Whatever
+#	    ^    ^ -> Space after space (\)
+echo "$mixed_bag"	# 2 --- Whatever
+
+echo; echo
+
+# ---------------------------
+#      Unsetting Values
+# ---------------------------
+
+echo "uninitialized_variable = $uninitialized_variable"
+# Uninitialized variable has a null value (no value at all!).
+uninitialized_variable= 	# Declaring, but not initializing it; same as 					above!
+uninitialized_variable=420 	# Setting the variable.
+unset uninitialized_variable	# Unsetting the variable.
+echo "uninitialized_variable = $uninitialized_variable"
+
+# NOTICE: Of course, an uninitialized variable has a "NULL" value -> No assigned value at all (not zero!). Furthemore, using such a variable before assigning it will cause problems; however, it is possible to use it for arithmetic operations. (It seems the initial value may be zero, yet it is believed it may change by memmory. Well thats what tends to happen in may other programming languages.)
